@@ -28,11 +28,11 @@ export async function connectFreighter(): Promise<string> {
     if (typeof res === 'string') {
       return res;
     }
-    if (res?.address) {
-      return res.address;
+    if ((res as any)?.address) {
+      return (res as any).address;
     }
-    if (res?.error) {
-      throw new Error(res.error);
+    if ((res as any)?.error) {
+      throw new Error((res as any).error);
     }
     throw new Error('No address returned from Freighter');
   } catch (err) {
