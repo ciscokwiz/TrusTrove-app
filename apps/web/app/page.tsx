@@ -332,7 +332,7 @@ export default function Home() {
           <div className="flex gap-4">
             <a href="#" className="hover:text-primary transition-colors">SPECIFICATION</a>
             <a href="#" className="hover:text-primary transition-colors">STELLAR EXPERT</a>
-            <a href="#" className="hover:text-primary transition-colors">DOCUMENTATION</a>
+            <Link href="/docs" className="hover:text-primary transition-colors">DOCUMENTATION</Link>
           </div>
         </div>
       </footer>
