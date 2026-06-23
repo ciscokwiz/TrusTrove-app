@@ -5,6 +5,7 @@ import { PageLayout } from '@/components/shared/PageLayout';
 import { usePool } from '@/hooks/usePool';
 import { useWalletStore } from '@/store/wallet';
 import { WalletConnect } from '@/components/shared/WalletConnect';
+import { PoolStatsPanelSkeleton, LPPositionCardSkeleton } from '@/components/shared/SkeletonLoader';
 import { Button } from '@/components/ui/button';
 import { TransactionPending } from '@/components/shared/TransactionPending';
 import { AmountInput } from '@/components/shared/AmountInput';
@@ -144,6 +145,9 @@ export default function LPDashboard() {
           
           {/* LEFT PANEL: Pool Overview */}
           <div className="lg:col-span-7 space-y-6">
+            {isStatsLoading ? (
+              <PoolStatsPanelSkeleton />
+            ) : (
             <div className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_20px_rgba(0,212,170,0.01)]">
               {/* Circular Gauge */}
               <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
@@ -171,7 +175,7 @@ export default function LPDashboard() {
                 </svg>
                 <div className="absolute flex flex-col items-center justify-center text-center font-mono">
                   <span className="text-2xl font-extrabold text-white">
-                    {isStatsLoading ? '—' : `${utilizationRate.toFixed(1)}%`}
+                    {`${utilizationRate.toFixed(1)}%`}
                   </span>
                   <span className="text-[8px] text-slate-500 font-bold uppercase tracking-wider">
                     UTILIZATION
@@ -184,29 +188,30 @@ export default function LPDashboard() {
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">Total Deposits</span>
                   <span className="text-md font-bold text-white block mt-1">
-                    {isStatsLoading ? 'Syncing...' : formatAmount(stats?.totalDeposits)}
+                    {formatAmount(stats?.totalDeposits)}
                   </span>
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">Available Liquidity</span>
                   <span className="text-md font-bold text-primary block mt-1">
-                    {isStatsLoading ? 'Syncing...' : formatAmount(stats?.availableLiquidity)}
+                    {formatAmount(stats?.availableLiquidity)}
                   </span>
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">Yield Distributed</span>
                   <span className="text-md font-bold text-emerald-400 block mt-1">
-                    {isStatsLoading ? 'Syncing...' : formatAmount(stats?.totalYieldDistributed)}
+                    {formatAmount(stats?.totalYieldDistributed)}
                   </span>
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">Active Invoices</span>
                   <span className="text-md font-bold text-slate-300 block mt-1">
-                    {isStatsLoading ? 'Syncing...' : `${stats?.activeInvoiceCount || 0} active`}
+                    {`${stats?.activeInvoiceCount || 0} active`}
                   </span>
                 </div>
               </div>
             </div>
+            )}
 
             {/* Historical Yield Line Chart (SVG based) */}
             <div className="bg-card border border-border rounded-lg p-5 space-y-4">
@@ -261,6 +266,9 @@ export default function LPDashboard() {
 
           {/* RIGHT PANEL: My Position */}
           <div className="lg:col-span-5 space-y-6">
+            {isPositionLoading ? (
+              <LPPositionCardSkeleton />
+            ) : (
             <div className="bg-[#0d131a] border border-border rounded-lg p-5 space-y-4">
               <h3 className="text-xs font-bold font-mono text-white uppercase tracking-wider border-b border-border/40 pb-2 flex items-center gap-1.5">
                 <Wallet className="w-3.5 h-3.5 text-primary" />
@@ -271,7 +279,7 @@ export default function LPDashboard() {
                 <div>
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">Current USDC Value</span>
                   <span className="text-xl font-bold text-white block mt-1">
-                    {isPositionLoading ? 'Syncing...' : formatAmount(position?.usdcValue)}
+                    {formatAmount(position?.usdcValue)}
                   </span>
                 </div>
 
@@ -279,18 +287,19 @@ export default function LPDashboard() {
                   <div>
                     <span className="text-[10px] text-slate-500 font-bold uppercase block">Redeemable Shares</span>
                     <span className="text-sm font-bold text-slate-300 block mt-0.5">
-                      {isPositionLoading ? '...' : (Number(position?.shares || 0n) / 10_000_000).toLocaleString(undefined, { minimumFractionDigits: 4 })}
+                      {(Number(position?.shares || 0n) / 10_000_000).toLocaleString(undefined, { minimumFractionDigits: 4 })}
                     </span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-500 font-bold uppercase block">Yield Earned</span>
                     <span className="text-sm font-bold text-emerald-400 block mt-0.5">
-                      {isPositionLoading ? '...' : formatAmount(position?.yieldEarned)}
+                      {formatAmount(position?.yieldEarned)}
                     </span>
                   </div>
                 </div>
               </div>
             </div>
+            )}
 
             {/* Deposit & Withdraw forms */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">

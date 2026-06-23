@@ -9,7 +9,7 @@ import { InvoiceCard } from '@/components/invoice/InvoiceCard';
 import { useInvoices } from '@/hooks/useInvoices';
 import { useWalletStore } from '@/store/wallet';
 import { WalletConnect } from '@/components/shared/WalletConnect';
-import { InvoiceCardSkeleton } from '@/components/shared/SkeletonLoader';
+import { InvoiceTableSkeleton, ActivityTimelineSkeleton } from '@/components/shared/SkeletonLoader';
 import { Layers, Plus } from 'lucide-react';
 import { Invoice } from '@/types';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -117,17 +117,10 @@ export default function SMEDashboard() {
           
           {/* Main Invoices Section (Left / Center) */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-sm font-bold font-mono tracking-wider uppercase text-white">Issued Invoices</h2>
-              {isLoading && <span className="text-[10px] font-mono text-primary animate-pulse uppercase">Syncing...</span>}
-            </div>
+            <h2 className="text-sm font-bold font-mono tracking-wider uppercase text-white">Issued Invoices</h2>
 
             {isLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <InvoiceCardSkeleton key={i} />
-                ))}
-              </div>
+              <InvoiceTableSkeleton />
             ) : (
               <InvoiceTable 
                 invoices={invoices} 
@@ -137,6 +130,9 @@ export default function SMEDashboard() {
             )}
 
             {/* Recent activity timeline */}
+            {isLoading ? (
+              <ActivityTimelineSkeleton />
+            ) : (
             <div className="bg-card border border-border rounded-lg p-5 space-y-4">
               <h3 className="text-xs font-bold font-mono text-white uppercase tracking-wider border-b border-border/40 pb-2">
                 On-Chain Activity Logs
@@ -153,6 +149,7 @@ export default function SMEDashboard() {
                 ))}
               </div>
             </div>
+            )}
           </div>
 
           {/* Side Management Panel (Right) */}
