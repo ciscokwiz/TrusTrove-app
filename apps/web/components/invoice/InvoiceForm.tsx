@@ -55,8 +55,8 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
         try {
           const { getInvoices } = await import('@/lib/api');
           const myInvoices = await getInvoices({ issuer: address });
-          if (myInvoices && myInvoices.length > 0) {
-            invoiceIdToSimulate = myInvoices[0].id;
+          if (myInvoices && myInvoices.data.length > 0) {
+            invoiceIdToSimulate = myInvoices.data[0].id;
           }
         } catch (e) {
           console.warn('Failed to fetch existing invoices for simulation:', e);
