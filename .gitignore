@@ -41,3 +41,4 @@ pnpm-debug.log*
 Thumbs.db
 .neon
 create_pr.ps1
+build_output.txt
