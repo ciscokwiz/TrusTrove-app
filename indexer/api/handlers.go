@@ -747,11 +747,11 @@ func (h *APIHandler) HandleGetInvoices(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := map[string]interface{}{
-		"data":        invoices,
-		"total":       total,
-		"page":        page,
-		"limit":       limit,
-		"totalPages":  totalPages,
+		"data":       invoices,
+		"total":      total,
+		"page":       page,
+		"limit":      limit,
+		"totalPages": totalPages,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

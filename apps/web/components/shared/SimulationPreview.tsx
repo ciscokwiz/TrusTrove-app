@@ -1,5 +1,5 @@
-import React from 'react';
-import { Cpu, Coins, ShieldAlert, Sparkles } from 'lucide-react';
+import React from "react";
+import { Cpu, Coins, ShieldAlert, Sparkles } from "lucide-react";
 
 interface SimulationDetails {
   estimatedFeeXlm: string;
@@ -15,7 +15,12 @@ interface SimulationPreviewProps {
   isFallback?: boolean;
 }
 
-export function SimulationPreview({ details, error, isLoading, isFallback }: SimulationPreviewProps) {
+export function SimulationPreview({
+  details,
+  error,
+  isLoading,
+  isFallback,
+}: SimulationPreviewProps) {
   if (isLoading) {
     return (
       <div className="bg-slate-900/40 border border-border/60 rounded-lg p-4 font-mono text-xs animate-pulse space-y-3">
@@ -68,24 +73,33 @@ export function SimulationPreview({ details, error, isLoading, isFallback }: Sim
             </span>
           )}
           <span className="relative flex h-2 w-2">
-            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isFallback ? 'bg-amber-400' : 'bg-emerald-400'} opacity-75`}></span>
-            <span className={`relative inline-flex rounded-full h-2 w-2 ${isFallback ? 'bg-amber-500' : 'bg-emerald-500'}`}></span>
+            <span
+              className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isFallback ? "bg-amber-400" : "bg-emerald-400"} opacity-75`}
+            ></span>
+            <span
+              className={`relative inline-flex rounded-full h-2 w-2 ${isFallback ? "bg-amber-500" : "bg-emerald-500"}`}
+            ></span>
           </span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1">
-          <span className="text-[9px] text-slate-500 uppercase block font-bold">Method</span>
+          <span className="text-[9px] text-slate-500 uppercase block font-bold">
+            Method
+          </span>
           <span className="text-white font-bold flex items-center gap-1">
             <Cpu className="w-3 h-3 text-slate-400" />
             {details.functionName}
           </span>
         </div>
         <div className="space-y-1">
-          <span className="text-[9px] text-slate-500 uppercase block font-bold">Footprint Size</span>
+          <span className="text-[9px] text-slate-500 uppercase block font-bold">
+            Footprint Size
+          </span>
           <span className="text-white font-bold">
-            {details.footprintSize} {details.footprintSize === 1 ? 'ledger entry' : 'ledger entries'}
+            {details.footprintSize}{" "}
+            {details.footprintSize === 1 ? "ledger entry" : "ledger entries"}
           </span>
         </div>
         <div className="space-y-1 col-span-2 border-t border-border/30 pt-2 flex justify-between items-center">

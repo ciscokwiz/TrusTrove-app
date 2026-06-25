@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useWalletStore } from '@/store/wallet';
-import { signTransaction } from '@stellar/freighter-api';
-import { Networks } from '@stellar/stellar-sdk';
+import { useState } from "react";
+import { useWalletStore } from "@/store/wallet";
+import { signTransaction } from "@stellar/freighter-api";
+import { Networks } from "@stellar/stellar-sdk";
 
 /**
  * Custom hook for authenticating the connected Stellar wallet via SEP-10.
@@ -43,7 +43,7 @@ export function useAuth() {
    */
   const login = async () => {
     if (!address) {
-      setError('Wallet not connected');
+      setError("Wallet not connected");
       return;
     }
 
@@ -51,42 +51,49 @@ export function useAuth() {
     setError(null);
 
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_INDEXER_API_URL || 'http://localhost:8080';
+      const apiBaseUrl =
+        process.env.NEXT_PUBLIC_INDEXER_API_URL || "http://localhost:8080";
 
       // 1. Fetch challenge XDR
       const challengeRes = await fetch(`${apiBaseUrl}/auth?address=${address}`);
       if (!challengeRes.ok) {
-        throw new Error(`Failed to fetch auth challenge: ${challengeRes.statusText}`);
+        throw new Error(
+          `Failed to fetch auth challenge: ${challengeRes.statusText}`,
+        );
       }
       const challengeData = await challengeRes.json();
       const { transaction } = challengeData;
 
       // 2. Sign with Freighter wallet
-      const stellarNetwork = process.env.NEXT_PUBLIC_STELLAR_NETWORK || 'TESTNET';
-      const networkPassphrase = process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || (stellarNetwork === 'PUBLIC' ? Networks.PUBLIC : Networks.TESTNET);
+      const stellarNetwork =
+        process.env.NEXT_PUBLIC_STELLAR_NETWORK || "TESTNET";
+      const networkPassphrase =
+        process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE ||
+        (stellarNetwork === "PUBLIC" ? Networks.PUBLIC : Networks.TESTNET);
       const signedXdr = await signTransaction(transaction, {
-        network: stellarNetwork as 'PUBLIC' | 'TESTNET',
+        network: stellarNetwork as "PUBLIC" | "TESTNET",
         networkPassphrase,
         accountToSign: address,
       });
 
       // 3. Submit signed challenge to verify and receive JWT
       const verifyRes = await fetch(`${apiBaseUrl}/auth`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ transaction: signedXdr }),
       });
 
       if (!verifyRes.ok) {
-        throw new Error('Authentication failed');
+        throw new Error("Authentication failed");
       }
 
       const verifyData = await verifyRes.json();
       setToken(verifyData.token);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Authentication failed';
+      const message =
+        err instanceof Error ? err.message : "Authentication failed";
       setError(message);
       setToken(null);
     } finally {

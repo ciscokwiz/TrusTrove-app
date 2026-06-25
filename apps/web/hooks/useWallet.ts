@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useWalletStore } from '@/store/wallet';
-import { connectFreighter } from '@/lib/freighter';
-import { useBalances } from './useBalances';
+import { useState } from "react";
+import { useWalletStore } from "@/store/wallet";
+import { connectFreighter } from "@/lib/freighter";
+import { useBalances } from "./useBalances";
 
 /**
  * Custom hook for managing Stellar wallet connection via Freighter.
@@ -28,7 +28,12 @@ export function useWallet() {
   const { address, connected, network, connect, disconnect } = useWalletStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { balances, loading: balancesLoading, error: balancesError, refetch: refetchBalances } = useBalances();
+  const {
+    balances,
+    loading: balancesLoading,
+    error: balancesError,
+    refetch: refetchBalances,
+  } = useBalances();
 
   /**
    * Initiates a Freighter wallet connection.
@@ -42,11 +47,13 @@ export function useWallet() {
     setError(null);
     try {
       const addr = await connectFreighter();
-      const stellarNetwork = process.env.NEXT_PUBLIC_STELLAR_NETWORK || 'TESTNET';
+      const stellarNetwork =
+        process.env.NEXT_PUBLIC_STELLAR_NETWORK || "TESTNET";
       // Defaults to testnet passphrase or string as configured
       connect(addr, stellarNetwork);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to connect wallet';
+      const message =
+        err instanceof Error ? err.message : "Failed to connect wallet";
       setError(message);
       disconnect();
     } finally {

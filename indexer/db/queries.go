@@ -290,13 +290,13 @@ func UpdatePoolStats(ctx context.Context, stats *DbPoolStats) error {
 		WHERE id = 1
 	`
 	args := pgx.NamedArgs{
-		"total_deposits":            stats.TotalDeposits,
-		"total_funded":              stats.TotalFunded,
-		"available_liquidity":       stats.AvailableLiquidity,
-		"utilization_rate_bps":      stats.UtilizationRateBps,
-		"total_yield_distributed":   stats.TotalYieldDistributed,
-		"active_invoice_count":      stats.ActiveInvoiceCount,
-		"total_shares":              stats.TotalShares,
+		"total_deposits":          stats.TotalDeposits,
+		"total_funded":            stats.TotalFunded,
+		"available_liquidity":     stats.AvailableLiquidity,
+		"utilization_rate_bps":    stats.UtilizationRateBps,
+		"total_yield_distributed": stats.TotalYieldDistributed,
+		"active_invoice_count":    stats.ActiveInvoiceCount,
+		"total_shares":            stats.TotalShares,
 	}
 	_, err := Pool.Exec(ctx, query, args)
 	if err != nil {
@@ -377,4 +377,3 @@ func GetLatestProcessedLedger(ctx context.Context) (int32, error) {
 	}
 	return ledger, nil
 }
-

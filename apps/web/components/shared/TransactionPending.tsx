@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Loader2, ExternalLink, ShieldCheck } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Loader2, ExternalLink, ShieldCheck } from "lucide-react";
 
 interface TransactionPendingProps {
   isOpen: boolean;
@@ -11,7 +11,12 @@ interface TransactionPendingProps {
   onClose?: () => void;
 }
 
-export function TransactionPending({ isOpen, txHash, statusText = 'Waiting for confirmation...', onClose }: TransactionPendingProps) {
+export function TransactionPending({
+  isOpen,
+  txHash,
+  statusText = "Waiting for confirmation...",
+  onClose,
+}: TransactionPendingProps) {
   if (!isOpen) return null;
 
   return (
@@ -23,10 +28,10 @@ export function TransactionPending({ isOpen, txHash, statusText = 'Waiting for c
           <div className="w-12 h-12 rounded-full border border-primary/40 bg-primary/10 flex items-center justify-center">
             <ShieldCheck className="w-6 h-6 text-primary" />
           </div>
-          
+
           {/* Orbital path */}
           <div className="absolute w-24 h-24 rounded-full border border-border/30 border-dashed" />
-          
+
           {/* Orbiting Moon */}
           <motion.div
             className="absolute w-3 h-3 rounded-full bg-primary"
@@ -36,13 +41,13 @@ export function TransactionPending({ isOpen, txHash, statusText = 'Waiting for c
             transition={{
               repeat: Infinity,
               duration: 4,
-              ease: 'linear',
+              ease: "linear",
             }}
             style={{
-              originX: '50%',
-              originY: '50%',
-              width: '96px', // spans outer bounds
-              height: '12px',
+              originX: "50%",
+              originY: "50%",
+              width: "96px", // spans outer bounds
+              height: "12px",
             }}
           />
         </div>
@@ -90,7 +95,15 @@ export function TransactionPending({ isOpen, txHash, statusText = 'Waiting for c
 }
 
 // Simple button helper to bypass standard UI import issues
-function Button({ children, className, onClick }: { children: React.ReactNode; className: string; onClick?: () => void }) {
+function Button({
+  children,
+  className,
+  onClick,
+}: {
+  children: React.ReactNode;
+  className: string;
+  onClick?: () => void;
+}) {
   return (
     <button className={className} onClick={onClick}>
       {children}

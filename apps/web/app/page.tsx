@@ -1,28 +1,27 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { TopStatusBar } from '@/components/shared/TopStatusBar';
-import { Navbar } from '@/components/shared/Navbar';
-import { InvoiceFeed } from '@/components/shared/InvoiceFeed';
-import { LpYieldCalculator } from '@/components/shared/LpYieldCalculator';
-import { DiscountCalculator } from '@/components/shared/DiscountCalculator';
-import { 
-  ShieldCheck, 
-  FileCheck2, 
-  Layers, 
-  Coins, 
+import Link from "next/link";
+import { TopStatusBar } from "@/components/shared/TopStatusBar";
+import { Navbar } from "@/components/shared/Navbar";
+import { InvoiceFeed } from "@/components/shared/InvoiceFeed";
+import { LpYieldCalculator } from "@/components/shared/LpYieldCalculator";
+import { DiscountCalculator } from "@/components/shared/DiscountCalculator";
+import {
+  ShieldCheck,
+  FileCheck2,
+  Layers,
+  Coins,
   Database,
   ArrowRightLeft,
-  Landmark
-} from 'lucide-react';
+  Landmark,
+} from "lucide-react";
 
 export default function Home() {
-
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary selection:text-black">
       {/* Top Status Bar with scrolling ticker */}
       <TopStatusBar />
-      
+
       {/* Main navigation */}
       <Navbar />
 
@@ -33,13 +32,15 @@ export default function Home() {
 
         {/* 3-Column Split Hero */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 items-start">
-          
           {/* LEFT: Live Invoice Financing Feed */}
           <div className="lg:col-span-3 space-y-3">
             <InvoiceFeed />
             <div className="bg-[#0d131a] border border-border rounded-lg p-4 font-mono text-[10px] text-slate-500 leading-normal">
-              <span className="text-primary font-bold block mb-1">STELLAR INTEGRATION</span>
-              Every entry represents a cryptographically secure, on-chain event emitted by the Soroban network and synced by our indexer.
+              <span className="text-primary font-bold block mb-1">
+                STELLAR INTEGRATION
+              </span>
+              Every entry represents a cryptographically secure, on-chain event
+              emitted by the Soroban network and synced by our indexer.
             </div>
           </div>
 
@@ -53,11 +54,14 @@ export default function Home() {
                 ELIMINATE THE <br className="hidden sm:inline" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">
                   $2.5 TRILLION
-                </span> <br />
+                </span>{" "}
+                <br />
                 TRADE FINANCE GAP
               </h1>
               <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-                TrusTrove tokenizes outstanding trade obligations on Stellar. SMEs secure immediate working capital at fair rates, and liquidity providers earn direct yield.
+                TrusTrove tokenizes outstanding trade obligations on Stellar.
+                SMEs secure immediate working capital at fair rates, and
+                liquidity providers earn direct yield.
               </p>
             </div>
 
@@ -121,7 +125,8 @@ export default function Home() {
                 1. REGISTER AS SME
               </h4>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                Verify your business identity on-chain via the registry contract to establish trusted credentials.
+                Verify your business identity on-chain via the registry contract
+                to establish trusted credentials.
               </p>
             </div>
 
@@ -134,7 +139,8 @@ export default function Home() {
                 2. TOKENIZE INVOICE
               </h4>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                Generate a unique invoice cryptographic hash on-chain representing your commercial shipment.
+                Generate a unique invoice cryptographic hash on-chain
+                representing your commercial shipment.
               </p>
             </div>
 
@@ -147,7 +153,8 @@ export default function Home() {
                 3. RECEIVE USDC LIQUIDITY
               </h4>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                Pool contract immediately funds the invoice at the agreed discount rate directly into your wallet.
+                Pool contract immediately funds the invoice at the agreed
+                discount rate directly into your wallet.
               </p>
             </div>
 
@@ -160,7 +167,8 @@ export default function Home() {
                 4. BUYER MATURITY SETTLEMENT
               </h4>
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                Buyer pays full invoice face value to the pool upon due date, releasing escrow and yielding LP interest.
+                Buyer pays full invoice face value to the pool upon due date,
+                releasing escrow and yielding LP interest.
               </p>
             </div>
           </div>
@@ -187,7 +195,8 @@ export default function Home() {
                 </h3>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Manages decentralized profiles and KYC verification status for issuers and buyers.
+                Manages decentralized profiles and KYC verification status for
+                issuers and buyers.
               </p>
               <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
                 <span>VERIFIED ISSUERS:</span>
@@ -204,7 +213,8 @@ export default function Home() {
                 </h3>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Stores tokenized invoices, discount rates, status lifecycle events, and compliance signatures.
+                Stores tokenized invoices, discount rates, status lifecycle
+                events, and compliance signatures.
               </p>
               <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
                 <span>TOTAL OBLIGATIONS:</span>
@@ -221,7 +231,8 @@ export default function Home() {
                 </h3>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Controls USDC liquidity deposits, share-based yield parameters, and locks obligations securely in escrow.
+                Controls USDC liquidity deposits, share-based yield parameters,
+                and locks obligations securely in escrow.
               </p>
               <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
                 <span>UTILIZATION RATE:</span>
@@ -250,9 +261,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <span>© 2026 TRUSTROVE PROTOCOL — VERIFIED TRADE FINANCE</span>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-primary transition-colors">SPECIFICATION</a>
-            <a href="#" className="hover:text-primary transition-colors">STELLAR EXPERT</a>
-            <Link href="/docs" className="hover:text-primary transition-colors">DOCUMENTATION</Link>
+            <a href="#" className="hover:text-primary transition-colors">
+              SPECIFICATION
+            </a>
+            <a href="#" className="hover:text-primary transition-colors">
+              STELLAR EXPERT
+            </a>
+            <Link href="/docs" className="hover:text-primary transition-colors">
+              DOCUMENTATION
+            </Link>
           </div>
         </div>
       </footer>
