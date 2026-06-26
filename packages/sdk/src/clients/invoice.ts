@@ -30,6 +30,7 @@ function parseInvoice(native: unknown): Invoice {
   let shippedAt: number | null = null;
   let issuerConfirmed = false;
   let buyerConfirmed = false;
+  let buyerConfirmedAt: number | null = null;
   let repaidAt: number | null = null;
 
   if (native instanceof Map) {
@@ -47,6 +48,7 @@ function parseInvoice(native: unknown): Invoice {
     shippedAt = native.get('shipped_at') ? getNumber(native.get('shipped_at')) : null;
     issuerConfirmed = getBoolean(native.get('issuer_confirmed'));
     buyerConfirmed = getBoolean(native.get('buyer_confirmed'));
+    buyerConfirmedAt = native.get('buyer_confirmed_at') ? getNumber(native.get('buyer_confirmed_at')) : null;
     repaidAt = native.get('repaid_at') ? getNumber(native.get('repaid_at')) : null;
   } else if (typeof native === 'object' && native !== null) {
     const obj = native as Record<string, unknown>;
@@ -64,6 +66,7 @@ function parseInvoice(native: unknown): Invoice {
     shippedAt = obj.shipped_at ? getNumber(obj.shipped_at) : null;
     issuerConfirmed = getBoolean(obj.issuer_confirmed);
     buyerConfirmed = getBoolean(obj.buyer_confirmed);
+    buyerConfirmedAt = obj.buyer_confirmed_at ? getNumber(obj.buyer_confirmed_at) : null;
     repaidAt = obj.repaid_at ? getNumber(obj.repaid_at) : null;
   }
 
@@ -82,6 +85,7 @@ function parseInvoice(native: unknown): Invoice {
     shippedAt,
     issuerConfirmed,
     buyerConfirmed,
+    buyerConfirmedAt,
     repaidAt,
   };
 }
