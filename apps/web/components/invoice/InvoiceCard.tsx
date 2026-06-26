@@ -337,27 +337,27 @@ export function InvoiceCard({ invoice, role, onSelect, isSelected }: InvoiceCard
             </Button>
           )}
 
-          {(invoice.status === 'Confirmed' || invoice.status === 'Active') && role === 'buyer' && (
-            <Button
-              className={`w-full font-bold uppercase tracking-wider text-xs rounded py-2 flex items-center justify-center gap-1.5 transition-all ${
-                isVerified
-                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                  : 'bg-neutral-800 text-slate-500 border border-neutral-700 cursor-not-allowed opacity-60'
-              }`}
-              onClick={() => {
-                if (!isVerified) return;
-                requestConfirmation({
-                  label: 'Repay Invoice',
-                  fn: () => repayInvoice({ invoiceId: invoice.id }),
-                  errorMsg: 'Failed to repay invoice',
-                });
-              }}
-              disabled={loading || !isVerified}
-            >
-              <Wallet className="w-3.5 h-3.5" />
-              {loading ? 'REPAYING...' : 'REPAY INVOICE'}
-            </Button>
-          )}
+{invoice.status === 'Confirmed' && role === 'buyer' && (
+             <Button
+               className={`w-full font-bold uppercase tracking-wider text-xs rounded py-2 flex items-center justify-center gap-1.5 transition-all ${
+                 isVerified
+                   ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                   : 'bg-neutral-800 text-slate-500 border border-neutral-700 cursor-not-allowed opacity-60'
+               }`}
+               onClick={() => {
+                 if (!isVerified) return;
+                 requestConfirmation({
+                   label: 'Repay Invoice',
+                   fn: () => repayInvoice({ invoiceId: invoice.id }),
+                   errorMsg: 'Failed to repay invoice',
+                 });
+               }}
+               disabled={loading || !isVerified}
+             >
+               <Wallet className="w-3.5 h-3.5" />
+               {loading ? 'REPAYING...' : 'REPAY INVOICE'}
+             </Button>
+           )}
 
           {invoice.status === 'Active' && isOverdue && (
             <Button
