@@ -6,3 +6,4 @@ export * from './clients/invoice.js';
 export * from './clients/pool.js';
 export * from './clients/escrow.js';
 export * from './clients/token.js';
+export * from './types/schemas.js';
