@@ -14,6 +14,10 @@ import { SimulationPreview } from '@/components/shared/SimulationPreview';
 
 const invoiceContractID = process.env.NEXT_PUBLIC_INVOICE_CONTRACT_ID || '';
 
+/** Zero-byte placeholder invoice ID for fee estimation simulation only */
+const SIMULATION_PLACEHOLDER_INVOICE_ID =
+  '0000000000000000000000000000000000000000000000000000000000000000';
+
 
 interface InvoiceFormProps {
   onSuccess?: () => void;
@@ -58,24 +62,8 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
 
       try {
         const invoiceClient = new InvoiceClient(invoiceContractID);
-        let invoiceIdToSimulate = '';
-
-        try {
-          const { getInvoices } = await import('@/lib/api');
-          const myInvoices = await getInvoices({ issuer: address });
-          if (myInvoices && myInvoices.data.length > 0) {
-            invoiceIdToSimulate = myInvoices.data[0].id;
-          }
-        } catch (e) {
-          console.warn('Failed to fetch existing invoices for simulation:', e);
-        }
-
-        if (!invoiceIdToSimulate) {
-          invoiceIdToSimulate = '0000000000000000000000000000000000000000000000000000000000000000';
-        }
-
         const args = [
-          xdr.ScVal.scvBytes(Buffer.from(invoiceIdToSimulate, 'hex')),
+          xdr.ScVal.scvBytes(Buffer.from(SIMULATION_PLACEHOLDER_INVOICE_ID, 'hex')),
           nativeToScVal(simulationDiscountBps, { type: 'u32' }),
         ];
 
