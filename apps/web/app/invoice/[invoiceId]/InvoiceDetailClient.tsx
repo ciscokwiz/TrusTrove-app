@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { useInvoice, useInvoices } from '@/hooks/useInvoices';
 import { useWalletStore } from '@/store/wallet';
