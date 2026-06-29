@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Sparkles, TrendingUp } from "lucide-react";
 
-// Custom CountUp hook to animate numbers smoothly in an operations terminal style
 function AnimatedValue({
   value,
   suffix = "",
@@ -14,34 +13,40 @@ function AnimatedValue({
   prefix?: string;
 }) {
   const [displayValue, setDisplayValue] = useState(value);
+  const startRef = useRef(value);
+  const frameRef = useRef<number | null>(null);
+
+  startRef.current = displayValue;
 
   useEffect(() => {
-    const start = displayValue;
+    const start = startRef.current;
     const end = value;
     if (start === end) return;
 
-    const duration = 400; // ms
+    const duration = 400;
     const startTime = performance.now();
 
     const updateNumber = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-
-      // Ease out quad
       const easeProgress = progress * (2 - progress);
       const current = start + (end - start) * easeProgress;
 
       setDisplayValue(current);
 
       if (progress < 1) {
-        requestAnimationFrame(updateNumber);
-      } else {
-        setDisplayValue(end);
+        frameRef.current = requestAnimationFrame(updateNumber);
       }
     };
 
-    requestAnimationFrame(updateNumber);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    frameRef.current = requestAnimationFrame(updateNumber);
+
+    return () => {
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+      }
+    };
   }, [value]);
 
   return (
